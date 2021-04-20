@@ -1,0 +1,37 @@
+#收件人信息配置
+ToEmail:
+  top:
+    2278417331@qq.com
+    #  487662970@qq.com
+#-----------------------------------------------------------------------------
+#启动端口配置
+server:
+  port: 8082
+#-----------------------------------------------------------------------------
+#log4j2配置文件
+logging:
+  config: classpath:config/log4j2.xml
+
+#-----------------------------------------------------------------------------
+#email配置
+spring:
+  mail:
+    #smtp服务主机  qq邮箱则为smtp.qq.com
+    host: smtp.163.com
+    #服务协议
+    protocol: smtp
+    # 编码集
+    default-encoding: UTF-8
+    #发送邮件的账户
+    username: 18238621523@163.com
+    #授权码
+    password: KJKQKLXMJJJZDJAX
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
