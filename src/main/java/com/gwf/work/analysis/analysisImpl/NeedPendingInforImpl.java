@@ -2,7 +2,6 @@ package com.gwf.work.analysis.analysisImpl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gwf.work.mode.SendEmail;
-import com.gwf.work.entity.ToEmail;
 import com.gwf.work.mode.HttpClientRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,6 @@ public class NeedPendingInforImpl implements NeedPendingInfor {
 	SendEmail sendEmail;
 	@Autowired
 	HttpClientRequest HttpClientRequest;
-
 
 	public String getNeedPendingInfor() {
 		boolean sta =  CommodityJson(HttpClientRequest.HttpClientJson(url, params ));
