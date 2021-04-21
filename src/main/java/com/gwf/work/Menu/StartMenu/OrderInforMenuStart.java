@@ -6,6 +6,7 @@ import com.gwf.work.mode.SeleniumHtmlCookie;
 import com.gwf.work.mode.SendEmail;
 import com.gwf.work.entity.ToEmail;
 
+import com.gwf.work.utils.GwfUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Map;
 
 /**
  * @author gwf
@@ -34,6 +35,8 @@ public class OrderInforMenuStart   {
     private SendEmail emailUtils;
     @Autowired
     ToEmail toEmail;
+    @Autowired
+    GwfUtils gwfUtils;
 
     @Autowired
     private SystemInfor systemInfor;
@@ -41,21 +44,26 @@ public class OrderInforMenuStart   {
     private SeleniumHtmlCookie seleniumHtmlCookie;
 
     public void startMenu(int second){
-        Date systemDate = new Date();
-        if (systemDate.getHours() >= 8 && systemDate.getHours() <= 18) {
+        if (gwfUtils.isRunTime()) {
             systemInfor.setCookie(seleniumHtmlCookie.getHtmlCookie());
-            log.info("【待发订单检索】");
+            log.info("----------------------------------------------------------");
+            log.info("【待发订单检索】结束，待发订单监控模块进入检索状态");
             String timeStr1 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
             emailSubject = timeStr1 + " 第" + second + "次检索";
             toEmail.setSubject(emailSubject);
-            log.info(""+timeStr1 + " 执行第" + second + "次检索");
-            toEmail.setContent(orderInfor.OrderImpl_XMLHttp());
-            log.info(emailUtils.htmlEmail(toEmail));
-        } else {
-            log.info("不在检索时间范围（6~18）内....."+ " 第" + second + "次检索等待中");
+            Map<String, String> resultMap = orderInfor.OrderImpl_XMLHttp();
+            if(resultMap.get("status").equals("200")) {
+                toEmail.setContent(resultMap.get("erInfor") + ",系统将自动退出");
+                log.info("【待发订单检索】" + timeStr1 + " 执行第" + second + " ," + resultMap.get("erInfor") + ",系统将自动退出" + emailUtils.htmlEmail(toEmail));
+            }else if("0".equals(resultMap.get("tongjuNum"))){
+                log.info("【待发订单检索】"+timeStr1 + " 执行第" + second + "次检索---无待发商品,不发送邮件通知");
+            }else{
+                toEmail.setContent(resultMap.get("htmlEmailValue"));
+                log.info("【待发订单检索】"+timeStr1 + " 执行第" + second + "次检索---结果为："+resultMap.get("searchValue")+","+emailUtils.htmlEmail(toEmail));
+            }
+            log.info("【待发订单检索】结束，待发订单监控模块进入休眠状态");
+            log.info("----------------------------------------------------------");
         }
-        log.info("本次检索结束，系统进入休眠状态");
-        log.info("-----------------------------");
     }
 
 }

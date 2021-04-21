@@ -29,4 +29,8 @@ public interface GwfUtils {
 	 * 未使用
 	 */
 	public String getObjectValueByName(Object object,String objectName);
+	/*
+	 * 判读是否自动工作时间
+	 */
+	public boolean isRunTime();
 }

@@ -1,5 +1,7 @@
 package com.gwf.work.analysis;
 
+import java.util.Map;
+
 /**
  * @author GWF
  *
@@ -7,5 +9,5 @@ package com.gwf.work.analysis;
 
 public interface OrderInfor {
 	public boolean OrderImpl_XMLHttpTemp();
-	public String OrderImpl_XMLHttp();
+	public Map<String, String> OrderImpl_XMLHttp();
 }

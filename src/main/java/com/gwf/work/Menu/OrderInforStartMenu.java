@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(value=3)
-public class OtherInforStartMenu  implements ApplicationRunner {
-    private static final Logger log = LoggerFactory.getLogger(OtherInforStartMenu.class);
+public class OrderInforStartMenu  implements ApplicationRunner {
+    private static final Logger log = LoggerFactory.getLogger(OrderInforStartMenu.class);
 
     @Autowired
     private SystemInfor systemInfor;
@@ -34,31 +34,35 @@ public class OtherInforStartMenu  implements ApplicationRunner {
         new Thread(){
             public void run() {
                 synchronized(systemInfor) {
-                    if(null==systemInfor.getSeparatedTime()){
+                    if (null == systemInfor.getSeparatedTime()) {
                         try {
                             systemInfor.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-
                 }
-
-                int SeparatedTime = Integer.parseInt( systemInfor.getSeparatedTime());
+                int SeparatedTime = Integer.parseInt(systemInfor.getSeparatedTime());
                 int second = 0;
-                while (true) {
-                    try {
+                    while (true) {
                         second++;
-                        orderInforMenuStart.startMenu(second);
-                        Thread.sleep(SeparatedTime * 60 * 1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                        try {
+                            synchronized (systemInfor) {
+                                if (!systemInfor.getStatus()) {
+                                    systemInfor.wait();
+                                }
+                                systemInfor.setStatus(false);
+                                orderInforMenuStart.startMenu(second);
+                                systemInfor.setStatus(true);
+                            }
+                            Thread.sleep(SeparatedTime * 60 * 1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
+                    }
             }
         }.start();
     }
-
 }
 

@@ -1,10 +1,11 @@
 package com.gwf.work.Menu.StartMenu;
 
-import com.gwf.work.analysis.OrderInfor;
+import com.gwf.work.analysis.NeedPendingInfor;
 import com.gwf.work.entity.SystemInfor;
 import com.gwf.work.entity.ToEmail;
 import com.gwf.work.mode.SeleniumHtmlCookie;
 import com.gwf.work.mode.SendEmail;
+import com.gwf.work.utils.GwfUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * @author gwf
@@ -28,33 +28,38 @@ public class NeedPendingMenuStart {
     private static String emailSubject = "";
 
     @Autowired
-    private OrderInfor orderInfor;
+    private NeedPendingInfor needPendingInfor;
     @Autowired
     private SendEmail emailUtils;
     @Autowired
     ToEmail toEmail;
-
+    @Autowired
+    GwfUtils gwfUtils;
     @Autowired
     private SystemInfor systemInfor;
     @Autowired
     private SeleniumHtmlCookie seleniumHtmlCookie;
 
     public void startMenu(int second){
-        Date systemDate = new Date();
-//        if (systemDate.getHours() >= 8 && systemDate.getHours() <= 18) {
-//            systemInfor.setCookie(seleniumHtmlCookie.getHtmlCookie());
-//            log.info("【待发订单检索】");
-//            String timeStr1 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
-//            emailSubject = timeStr1 + " 第" + second + "次检索";
-//            toEmail.setSubject(emailSubject);
-//            log.info(""+timeStr1 + " 执行第" + second + "次检索");
-//            toEmail.setContent(orderInfor.OrderImpl_XMLHttp());
-//            log.info(emailUtils.htmlEmail(toEmail));
-//        } else {
-//            log.info("不在检索时间范围（6~18）内....."+ " 第" + second + "次检索等待中");
-//        }
-        log.info("本次检索结束，系统进入休眠状态");
-        log.info("-----------------------------");
+        if (gwfUtils.isRunTime()) {
+            String timeStr1 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+            systemInfor.setCookie(seleniumHtmlCookie.getHtmlCookie());
+            log.info("----------------------------------------------------------");
+            log.info("【待审商品检索】激活，待审商品监控模块进入检索状态");
+            emailSubject ="【待审商品检索】"+ timeStr1 + " 第" + second + "次检索";
+            toEmail.setSubject(emailSubject);
+
+            String needPendingInforNum = this.needPendingInfor.getNeedPendingInfor();
+            if("".equals(needPendingInforNum)){
+                log.info("【待审商品检索】"+timeStr1 + " 执行第" + second + "次检索---无需要审核商品");
+            }else{
+                log.info("【待审商品检索】"+timeStr1 + " 执行第" + second + "次检索结果为："+needPendingInforNum);
+                toEmail.setContent("【待审商品检索】"+timeStr1 + " 执行第" + second + "次检索 "+ needPendingInforNum);
+                log.info(emailUtils.htmlEmail(toEmail));
+            }
+            log.info("【待审商品检索】结束，待审商品监控模块进入休眠状态");
+            log.info("----------------------------------------------------------");
+        }
     }
 
 }

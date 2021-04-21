@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gwf.work.analysis.Commodity;
+import com.gwf.work.analysis.NeedPendingInfor;
 @Repository
-public class CommodityImpl implements Commodity {
-	private static final Logger log = LoggerFactory.getLogger(CommodityImpl.class);
+public class NeedPendingInforImpl implements NeedPendingInfor {
+	private static final Logger log = LoggerFactory.getLogger(NeedPendingInforImpl.class);
 	
 	private String url = "https://www.tf0914.com/goods/selectByExampleAndPageDetail";
 	private String params = "{\"entity\":{\"status\":\"待审核\"},\"pageNum\":1,\"pageSize\":10,\"jcls\":\"Goods\"}";
@@ -22,17 +22,13 @@ public class CommodityImpl implements Commodity {
 	@Autowired
 	HttpClientRequest HttpClientRequest;
 
-	@Autowired
-	private ToEmail toEmail;
 
-	public String PendSendEmailController(int PendCommodityTime) {
+	public String getNeedPendingInfor() {
 		boolean sta =  CommodityJson(HttpClientRequest.HttpClientJson(url, params ));
 		if(sta) {
-			toEmail.setSubject("");
-			sendEmail.htmlEmail(toEmail);
-			return "待审商品"+totalRows+"个，发送邮件";
+			return ""+totalRows;
 		}else {
-			return "无待审商品，不发送邮件";
+			return "";
 			
 		}
 	}
@@ -40,10 +36,8 @@ public class CommodityImpl implements Commodity {
 		JSONObject json_Data = (JSONObject) JSONObject.parse(httpClientJson);
 		totalRows = (int) JSONObject.parse(json_Data.getString("totalRows"));
 		if(totalRows==0) {
-			log.info("无待审商品");
 			return false;
 		}else {
-			log.info("有待审商品 "+totalRows+" 个");
 			return true;
 		}
 	}

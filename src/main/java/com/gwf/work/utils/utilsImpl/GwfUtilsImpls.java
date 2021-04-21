@@ -11,8 +11,10 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-
+import java.util.Calendar;
 import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +22,8 @@ import com.gwf.work.utils.GwfUtils;
 
 @Repository("GwfUtils")
 public class GwfUtilsImpls implements GwfUtils {
+	private static final Logger log = LoggerFactory.getLogger(GwfUtilsImpls.class);
+
 	@Override
 	public String getFilePath(String fileName){
 		File file = new File(Test.class.getClassLoader().getResource(fileName).getPath());
@@ -134,5 +138,17 @@ public class GwfUtilsImpls implements GwfUtils {
 			e.printStackTrace();
 			return "--";
 		}
+	}
+
+	//************************************************************
+	public boolean isRunTime(){
+		Calendar cal = Calendar.getInstance();
+		int hour=cal.get(Calendar.HOUR);//获取日
+		log.info(hour+"");
+		if (hour >= 8 && hour <= 18) {
+			return true;
+		}
+		log.info("不在检索时间范围（6~18）内.....暂停检索");
+		return false;
 	}
 }
