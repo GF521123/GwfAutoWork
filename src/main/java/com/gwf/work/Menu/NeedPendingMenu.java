@@ -45,7 +45,6 @@ public class NeedPendingMenu implements ApplicationRunner {
                 int second = 0;
                 while (true) {
 
-//
                         try {
                             second++;
                             synchronized(systemInfor) {
@@ -66,33 +65,6 @@ public class NeedPendingMenu implements ApplicationRunner {
                 }
 
 
-
-//                int second = 0;
-//                while (true) {
-//                    synchronized(systemInfor) {
-//                        if(null==systemInfor.getPendEffectiveTime()||!systemInfor.getStatus()){
-//                            try {
-//                                systemInfor.wait();
-//                                systemInfor.setStatus(false);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//
-//                        int PendEffectiveTime = Integer.parseInt( systemInfor.getPendEffectiveTime());
-//                        try {
-//                            second++;
-//                            needPendingMenuStart.startMenu(second);
-//                            systemInfor.setStatus(true);
-//                            systemInfor.notify();
-//                            log.info(""+Thread.holdsLock(systemInfor));
-//                            Thread.sleep(PendEffectiveTime * 60 * 1000);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }
 
             }
         }.start();

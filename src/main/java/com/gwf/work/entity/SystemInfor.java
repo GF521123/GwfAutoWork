@@ -21,4 +21,5 @@ public class SystemInfor {
     private String PendEffectiveTime ;// 60分钟 待审产品
     private String cookie;
     private String ShopPendingTime;
+    private String CoreTime;
 }
