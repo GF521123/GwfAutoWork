@@ -26,6 +26,8 @@ import java.time.format.DateTimeFormatter;
 @Order(value=1)
 public class CoreMenu  implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(CoreMenu.class);
+
+
     private static String emailSubject = "";
 
     @Autowired
@@ -64,11 +66,12 @@ public class CoreMenu  implements CommandLineRunner {
                         }
                     }
                 }
+
+                 String orderResString = "";
+                 String NeedPendResString = "";
+                 String ShopResString = "";
+                 String UpdateNameResString = "";
                 int second = 0;
-                String orderResString = "";
-                String NeedPendResString = "";
-                String ShopResString = "";
-                String UpdateNameResString = "";
                 while (true) {
                     systemInfor.setCookie(seleniumHtmlCookie.getHtmlCookie());
                     if (gwfUtils.isRunTime()) {
@@ -79,44 +82,19 @@ public class CoreMenu  implements CommandLineRunner {
                         try {
                             //待发订单
                             synchronized (systemInfor) {
-                                if (!systemInfor.getStatus()) {
-                                    systemInfor.wait();
-                                }
-                                systemInfor.setStatus(false);
-                                orderResString = orderInforMenuStart.startMenu(second,timeStr1);
-                                systemInfor.setSyncNum(systemInfor.getSyncNum() + 1);
-                                systemInfor.setStatus(true);
+                                orderResString = getRestValue(systemInfor,second,timeStr1,"待发订单");
                             }
                             //待审商品
                             synchronized (systemInfor) {
-                                if (!systemInfor.getStatus()) {
-                                    systemInfor.wait();
-                                }
-                                systemInfor.setStatus(false);
-                                NeedPendResString = needPendingMenuStart.startMenu(second,timeStr1);
-                                systemInfor.setSyncNum(systemInfor.getSyncNum() + 1);
-                                systemInfor.setStatus(true);
+                                NeedPendResString = getRestValue(systemInfor,second,timeStr1,"待审商品");
                             }
 
                             //待改名字
                             synchronized (systemInfor) {
-                                if (!systemInfor.getStatus()) {
-                                    systemInfor.wait();
-                                }
-                                systemInfor.setStatus(false);
-                                UpdateNameResString = updateShopNameMenuStart.startMenu(second,timeStr1);
-                                systemInfor.setSyncNum(systemInfor.getSyncNum() + 1);
-                                systemInfor.setStatus(true);
+                                UpdateNameResString = getRestValue(systemInfor,second,timeStr1,"改名店名");
                             }
-                            //待改名字
                             synchronized (systemInfor) {
-                                if (!systemInfor.getStatus()) {
-                                    systemInfor.wait();
-                                }
-                                systemInfor.setStatus(false);
-                                ShopResString = shopPendingMenuStart.startMenu(second,timeStr1);
-                                systemInfor.setSyncNum(systemInfor.getSyncNum() + 1);
-                                systemInfor.setStatus(true);
+                                ShopResString = getRestValue(systemInfor,second,timeStr1,"待审店铺");
                             }
 
                             synchronized (systemInfor) {
@@ -125,9 +103,11 @@ public class CoreMenu  implements CommandLineRunner {
                                 }
                                 String resValue = ShopResString+ UpdateNameResString + NeedPendResString + orderResString;
                                 if (!"".equals(resValue)) {
+                                    log.info("检索完毕，开始发送邮件");
                                     toEmail.setSubject(emailSubject);
                                     toEmail.setContent(resValue);
                                     log.info(emailUtils.htmlEmail(toEmail));
+                                    log.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                                 }
                             }
                             Thread.sleep(Integer.parseInt(systemInfor.getCoreTime()) * 60 * 1000);
@@ -140,5 +120,34 @@ public class CoreMenu  implements CommandLineRunner {
                 }
             }
         }.start();
+    }
+    public String getRestValue(SystemInfor systemInfor,int second,String timeStr,String name)  {
+        synchronized (systemInfor){
+
+            if (!systemInfor.getStatus()) {
+                try {
+                    systemInfor.wait();
+                }catch (Exception e){
+
+                }
+            }
+            String resValue ="";
+            systemInfor.setStatus(false);
+            gwfUtils.ConsoleHead(name);
+            if("待发订单".equals(name)) {
+                resValue = orderInforMenuStart.startMenu(second, timeStr);
+            }else if("待审商品".equals(name)){
+                resValue = needPendingMenuStart.startMenu(second,timeStr);
+            }else if("改名店名".equals(name)){
+                resValue = updateShopNameMenuStart.startMenu(second,timeStr);
+            }else if("待审店铺".equals(name)){
+                resValue = shopPendingMenuStart.startMenu(second,timeStr);
+
+            }
+            systemInfor.setSyncNum(systemInfor.getSyncNum() + 1);
+            gwfUtils.ConsoleEnd(name);
+            systemInfor.setStatus(true);
+            return resValue;
+        }
     }
 }

@@ -42,19 +42,13 @@ public class NeedPendingMenuStart {
 
     public String startMenu(int second,String timeStr1){
         if (gwfUtils.isRunTime()) {
-            log.info("----------------------------------------------------------");
-            log.info("【待审商品检索】激活，待审商品监控模块进入检索状态");
             String needPendingInforNum = this.needPendingInfor.getNeedPendingInfor();
             if("".equals(needPendingInforNum)){
-                log.info("【待审商品检索】"+timeStr1 + " 执行第" + second + "次检索---无需要审核商品");
-                log.info("【待审商品检索】结束，待审商品监控模块进入休眠状态");
-                log.info("----------------------------------------------------------");
+                log.info("【待审商品】检索"+timeStr1 + " 执行第" + second + "次检索---无需要审核商品");
                 return "";
             }else{
-                log.info("【待审商品检索】"+timeStr1 + " 执行第" + second + "次检索结果为："+needPendingInforNum);
-                log.info("【待审商品检索】结束，待审商品监控模块进入休眠状态");
-                log.info("----------------------------------------------------------");
-                return "【待审商品检索】"+timeStr1 + " 执行第" + second + "次检索 "+ needPendingInforNum;
+                log.info("【待审商品】检索"+timeStr1 + " 执行第" + second + "次检索结果为："+needPendingInforNum);
+                return "【待审商品】检索"+timeStr1 + " 执行第" + second + "次检索 "+ needPendingInforNum;
             }
         }
         return "";

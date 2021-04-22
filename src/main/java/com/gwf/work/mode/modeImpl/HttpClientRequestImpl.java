@@ -7,10 +7,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.gwf.work.Menu.SystemInforMenu;
 import com.gwf.work.entity.SystemInfor;
-import com.gwf.work.mode.SeleniumHtmlCookie;
-import com.gwf.work.utils.GwfUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

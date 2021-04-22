@@ -46,26 +46,16 @@ public class OrderInforMenuStart   {
     public String startMenu(int second,String timeStr1){
 
         if (gwfUtils.isRunTime()) {
-            log.info("----------------------------------------------------------");
-            log.info("【待发订单检索】激活，待发订单监控模块进入检索状态");
             Map<String, String> resultMap = orderInfor.OrderImpl_XMLHttp();
             if(resultMap.get("status").equals("200")) {
-                log.info("【待发订单检索】" + timeStr1 + " 执行第" + second + " ," + resultMap.get("erInfor") + ",系统将自动退出" );
-                log.info("【待发订单检索】结束，待发订单监控模块进入休眠状态");
-                log.info("----------------------------------------------------------");
+                log.info("【待发订单】检索" + timeStr1 + " 执行第" + second + " ," + resultMap.get("erInfor") + ",系统将自动退出" );
                 return resultMap.get("erInfor") + ",系统将自动退出";
             }else if("0".equals(resultMap.get("tongjuNum"))){
-                log.info("【待发订单检索】"+timeStr1 + " 执行第" + second + "次检索---无待发商品,不发送邮件通知");
-
-                log.info("【待发订单检索】结束，待发订单监控模块进入休眠状态");
-                log.info("----------------------------------------------------------");
+                log.info("【待发订单】检索"+timeStr1 + " 执行第" + second + "次检索---无待发商品,不发送邮件通知");
                 return "";
             }else{
 //                    toEmail.setContent(resultMap.get("htmlEmailValue"));
-                log.info("【待发订单检索】"+timeStr1 + " 执行第" + second + "次检索---结果为："+resultMap.get("searchValue")+",");
-
-                log.info("【待发订单检索】结束，待发订单监控模块进入休眠状态");
-                log.info("----------------------------------------------------------");
+                log.info("【待发订单】检索"+timeStr1 + " 执行第" + second + "次检索---结果为："+resultMap.get("searchValue")+",");
                 return resultMap.get("htmlEmailValue");
             }
 

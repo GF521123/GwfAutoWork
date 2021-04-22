@@ -153,13 +153,12 @@ public class GwfUtilsImpls implements GwfUtils {
 	}
 
 	public void ConsoleHead(String name){
-		log.info("-----------------------------------------------------------------------");
 		log.info("*************************【"+name+"】**********************************");
-		log.info("【"+name+"】激活，待审商品监控模块进入检索状态");
+		log.info("【"+name+"】检索激活，待审商品监控模块进入检索状态");
 	}
 
 	public void ConsoleEnd(String name){
-		log.info("【"+name+"】结束，待审商品监控模块进入休眠状态");
+		log.info("【"+name+"】检索结束，待审商品监控模块进入休眠状态");
 		log.info("-----------------------------------------------------------------------");
 	}
 }

@@ -33,4 +33,9 @@ public interface GwfUtils {
 	 * 判读是否自动工作时间
 	 */
 	public boolean isRunTime();
+
+
+	public void ConsoleHead(String name);
+
+	public void ConsoleEnd(String name);
 }
