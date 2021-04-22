@@ -24,6 +24,7 @@ public class SystemInforMenuStart{
 	private SystemInfor systemInfor;
 
 	public void showSystemInfor() {
+		log.info("系统初始化.....");
 		String sysInforString=ShowSystemInfor()+"\n\n--------------当前运行环境信息----------------\n";
 		sysInforString=sysInforString + "获取系统运行环境信息...";
 		sysInforString=sysInforString + "操作系统：" + System.getProperty("os.name")+"\n";// 操作系统的名称
@@ -44,6 +45,7 @@ public class SystemInforMenuStart{
 		sysInforString=sysInforString +"设定参数对象可用" + systemInfor.getStatus()+ "分钟\n";
 		sysInforString=sysInforString + "设置参数完毕\n";
 		log.info(sysInforString);
+		log.info("系统初始化结束");
 	}
 	public String ShowSystemInfor(){
 		return ("\n" + gwfUtils.fileReadSelect("static/about.txt"));

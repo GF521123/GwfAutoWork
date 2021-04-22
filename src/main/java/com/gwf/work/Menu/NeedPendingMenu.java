@@ -1,7 +1,6 @@
 package com.gwf.work.Menu;
 
 import com.gwf.work.Menu.StartMenu.NeedPendingMenuStart;
-import com.gwf.work.Menu.StartMenu.OrderInforMenuStart;
 import com.gwf.work.entity.SystemInfor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,38 +30,37 @@ public class NeedPendingMenu implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         new Thread(){
             public void run() {
+//                synchronized(systemInfor) {
+//                    if (null == systemInfor.getPendEffectiveTime() ) {
+//                        try {
+//                            systemInfor.wait();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                int PendEffectiveTime = Integer.parseInt( systemInfor.getPendEffectiveTime());
+//                int second = 0;
+//                while (true) {
 //
-                synchronized(systemInfor) {
-                    if (null == systemInfor.getPendEffectiveTime() ) {
-                        try {
-                            systemInfor.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                int PendEffectiveTime = Integer.parseInt( systemInfor.getPendEffectiveTime());
-                int second = 0;
-                while (true) {
-
-                        try {
-                            second++;
-                            synchronized(systemInfor) {
-                                if (!systemInfor.getStatus()) {
-                                    systemInfor.wait();
-                                }
-                                systemInfor.setStatus(false);
-                                needPendingMenuStart.startMenu(second);
-                                systemInfor.setStatus(true);
-                            }
-
-                            Thread.sleep(PendEffectiveTime * 60 * 1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-
-                }
+//                        try {
+//                            second++;
+//                            synchronized(systemInfor) {
+//                                if (!systemInfor.getStatus()) {
+//                                    systemInfor.wait();
+//                                }
+//                                systemInfor.setStatus(false);
+//                                needPendingMenuStart.startMenu(second);
+//                                systemInfor.setStatus(true);
+//                            }
+//
+//                            Thread.sleep(PendEffectiveTime * 60 * 1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                }
 
 
 

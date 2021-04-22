@@ -27,9 +27,10 @@ public class SystemInforMenu implements CommandLineRunner {
     public void run(String... args) throws Exception {
         new Thread(){
             public void run() {
-                log.info("系统初始化.....");
-                systemInforMenuStart.showSystemInfor();
-                log.info("系统初始化结束");
+                this.stop();
+//                log.info("系统初始化.....");
+//                systemInforMenuStart.showSystemInfor();
+//                log.info("系统初始化结束");
             }
         }.start();
 

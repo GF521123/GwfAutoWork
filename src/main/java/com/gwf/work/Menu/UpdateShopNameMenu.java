@@ -26,34 +26,34 @@ public class UpdateShopNameMenu implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         new Thread(){
             public void run() {
-                synchronized(systemInfor) {
-                    if (null == systemInfor.getSeparatedTime()) {
-                        try {
-                            systemInfor.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                int SeparatedTime = Integer.parseInt(systemInfor.getSeparatedTime());
-                int second = 0;
-                while (true) {
-                    second++;
-                    try {
-                        synchronized (systemInfor) {
-                            if (!systemInfor.getStatus()) {
-                                systemInfor.wait();
-                            }
-                            systemInfor.setStatus(false);
-                            updateShopNameMenuStart.startMenu(second);
-                            systemInfor.setStatus(true);
-                        }
-                        Thread.sleep(SeparatedTime * 60 * 1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
+//                synchronized(systemInfor) {
+//                    if (null == systemInfor.getSeparatedTime()) {
+//                        try {
+//                            systemInfor.wait();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                int SeparatedTime = Integer.parseInt(systemInfor.getSeparatedTime());
+//                int second = 0;
+//                while (true) {
+//                    second++;
+//                    try {
+//                        synchronized (systemInfor) {
+//                            if (!systemInfor.getStatus()) {
+//                                systemInfor.wait();
+//                            }
+//                            systemInfor.setStatus(false);
+//                            updateShopNameMenuStart.startMenu(second);
+//                            systemInfor.setStatus(true);
+//                        }
+//                        Thread.sleep(SeparatedTime * 60 * 1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
             }
         }.start();
     }

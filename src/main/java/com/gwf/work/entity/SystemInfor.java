@@ -22,4 +22,5 @@ public class SystemInfor {
     private String cookie;
     private String ShopPendingTime;
     private String CoreTime;
+    private int syncNum;
 }

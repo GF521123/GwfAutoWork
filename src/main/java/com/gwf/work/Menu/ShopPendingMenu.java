@@ -34,37 +34,34 @@ public class ShopPendingMenu implements ApplicationRunner {
 
         new Thread(){
             public void run() {
-                synchronized(systemInfor) {
-                    if (null == systemInfor.getShopPendingTime() ) {
-                        try {
-                            systemInfor.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                int ShopPendingTime = Integer.parseInt( systemInfor.getShopPendingTime());
-                int second = 0;
-                while (true) {
-
-                        try {
-                            second++;
-                            synchronized(systemInfor) {
-                                if (!systemInfor.getStatus()) {
-                                    systemInfor.wait();
-                                }
-                                systemInfor.setStatus(false);
-                                shopPendingMenuStart.startMenu(second);
-                                systemInfor.setStatus(true);
-                            }
-
-                            Thread.sleep(ShopPendingTime * 60 * 1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-
-                }
+//                synchronized(systemInfor) {
+//                    if (null == systemInfor.getShopPendingTime() ) {
+//                        try {
+//                            systemInfor.wait();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                int ShopPendingTime = Integer.parseInt( systemInfor.getShopPendingTime());
+//                int second = 0;
+//                while (true) {
+//                        try {
+//                            second++;
+//                            synchronized(systemInfor) {
+//                                if (!systemInfor.getStatus()) {
+//                                    systemInfor.wait();
+//                                }
+//                                systemInfor.setStatus(false);
+//                                shopPendingMenuStart.startMenu(second);
+//                                systemInfor.setStatus(true);
+//                            }
+//
+//                            Thread.sleep(ShopPendingTime * 60 * 1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                }
 
 
             }
