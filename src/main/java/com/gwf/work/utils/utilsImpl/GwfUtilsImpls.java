@@ -141,10 +141,10 @@ public class GwfUtilsImpls implements GwfUtils {
 	}
 
 	//************************************************************
+
 	public boolean isRunTime(){
 		Calendar cal = Calendar.getInstance();
-		int hour=cal.get(Calendar.HOUR);//获取日
-		log.info(hour+"");
+		int hour=cal.get(Calendar.HOUR_OF_DAY);//获取日
 		if (hour >= 8 && hour <= 18) {
 			return true;
 		}

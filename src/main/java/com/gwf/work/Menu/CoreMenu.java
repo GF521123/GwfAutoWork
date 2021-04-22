@@ -18,13 +18,6 @@ public class CoreMenu  implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(CoreMenu.class);
 
 
-
-    /*
-     *	初始化及总开关实现
-     *  子开关1：PrintSystemInfor()输出系统信息
-     *  子开关2：GoodsToBeSend()待发订单监控
-     *  子开关end： KeepCookies()维持cookies不会失效
-     */
     @Override
     public void run(String... args) throws Exception {
 
