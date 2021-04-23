@@ -64,7 +64,7 @@ public class SendEmailImpl implements SendEmail {
 	 */
 	public String htmlEmail(ToEmail toEmail) {
 		toEmail.setTos(tos);
-		log.info("发送邮件给"+Arrays.toString(toEmail.getTos())+"........");
+		log.info("【邮件】发送邮件给"+Arrays.toString(toEmail.getTos())+"........");
 		// 创建一个MINE消息
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
@@ -78,10 +78,10 @@ public class SendEmailImpl implements SendEmail {
 			// 邮件内容 true 表示带有附件或html
 			minehelper.setText(toEmail.getContent(), true);
 			mailSender.send(message);
-			return "发送邮件成功";
+			return "【邮件】发送邮件成功";
 		} catch (MailException | MessagingException e) {
 			e.printStackTrace();	
-			return "发送邮件失败";
+			return "【邮件】发送邮件失败";
 		}
 	}
 	/*

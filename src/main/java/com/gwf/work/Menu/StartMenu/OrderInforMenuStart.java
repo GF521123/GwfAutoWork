@@ -27,40 +27,28 @@ import java.util.Map;
 @Repository
 public class OrderInforMenuStart   {
     private static final Logger log = LoggerFactory.getLogger(OrderInforMenuStart.class);
-    private static String emailSubject = "";
 
     @Autowired
     private OrderInfor orderInfor;
-    @Autowired
-    private SendEmail emailUtils;
     @Autowired
     ToEmail toEmail;
     @Autowired
     GwfUtils gwfUtils;
 
-    @Autowired
-    private SystemInfor systemInfor;
-    @Autowired
-    private SeleniumHtmlCookie seleniumHtmlCookie;
-
     public String startMenu(int second,String timeStr1){
 
-        if (gwfUtils.isRunTime()) {
-            Map<String, String> resultMap = orderInfor.OrderImpl_XMLHttp();
-            if(resultMap.get("status").equals("200")) {
-                log.info("【待发订单】检索" + timeStr1 + " 执行第" + second + " ," + resultMap.get("erInfor") + ",系统将自动退出" );
-                return resultMap.get("erInfor") + ",系统将自动退出";
-            }else if("0".equals(resultMap.get("tongjuNum"))){
-                log.info("【待发订单】检索"+timeStr1 + " 执行第" + second + "次检索---无待发商品,不发送邮件通知");
-                return "";
-            }else{
-//                    toEmail.setContent(resultMap.get("htmlEmailValue"));
-                log.info("【待发订单】检索"+timeStr1 + " 执行第" + second + "次检索---结果为："+resultMap.get("searchValue")+",");
-                return resultMap.get("htmlEmailValue");
-            }
-
+        Map<String, String> resultMap = orderInfor.OrderImpl_XMLHttp();
+        if(resultMap.get("status").equals("200")) {
+            log.info("【待发订单】检索" + timeStr1 + " 执行第" + second + " ," + resultMap.get("erInfor") + ",系统将自动退出" );
+            return resultMap.get("erInfor") + ",系统将自动退出";
+        }else if("0".equals(resultMap.get("tongjuNum"))){
+            log.info("【待发订单】检索"+timeStr1 + " 执行第" + second + "次检索---无待发商品,不发送邮件通知");
+            return "";
+        }else{
+            log.info("【待发订单】检索"+timeStr1 + " 执行第" + second + "次检索---结果为："+resultMap.get("searchValue")+",");
+            return resultMap.get("htmlEmailValue");
         }
-        return "";
+
     }
 
 }

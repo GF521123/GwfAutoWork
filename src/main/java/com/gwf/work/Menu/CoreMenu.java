@@ -103,7 +103,7 @@ public class CoreMenu  implements CommandLineRunner {
                                 }
                                 String resValue = ShopResString+ UpdateNameResString + NeedPendResString + orderResString;
                                 if (!"".equals(resValue)) {
-                                    log.info("检索完毕，开始发送邮件");
+                                    log.info("【邮件】检索完毕，开始发送邮件");
                                     toEmail.setSubject(emailSubject);
                                     toEmail.setContent(resValue);
                                     log.info(emailUtils.htmlEmail(toEmail));

@@ -83,7 +83,6 @@ public class OrderInforImpl implements OrderInfor {
 				resultString += orderUtils.rsultFrist(res);
 				tongjuNum = tongjuNum + orderUtils.getClass().getField("tongjuNum").getInt(orderUtils);
 			}
-			log.info("本次检索结束");
 		} catch (Exception e) {
 
 			resultMap.put("status","200");

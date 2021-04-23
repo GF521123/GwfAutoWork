@@ -26,38 +26,28 @@ import java.util.Map;
 @Repository
 public class ShopPendingMenuStart {
     private static final Logger log = LoggerFactory.getLogger(ShopPendingMenuStart.class);
-    private static String emailSubject = "";
 
     @Autowired
     private ShopPendingInfor shopPendingInfor;
-    @Autowired
-    private SendEmail emailUtils;
     @Autowired
     ToEmail toEmail;
     @Autowired
     GwfUtils gwfUtils;
 
-    @Autowired
-    private SystemInfor systemInfor;
-    @Autowired
-    private SeleniumHtmlCookie seleniumHtmlCookie;
 
     public String startMenu(int second,String timeStr1){
 
-        if (gwfUtils.isRunTime()) {
-            Map<String, String> resultMap = shopPendingInfor.getShopPendinginfor();
-            if(resultMap.get("status").equals("200")) {
+        Map<String, String> resultMap = shopPendingInfor.getShopPendinginfor();
+        if(resultMap.get("status").equals("200")) {
 
-                log.info("【待审店铺】检索" + timeStr1 + " 执行第" + second + " ," + resultMap.get("erInfor") + ",系统将自动退出" );
-                return  resultMap.get("erInfor") + ",系统将自动退出";
-            }else if("0".equals(resultMap.get("totalRows"))){
-                log.info("【待审店铺】检索"+timeStr1 + " 执行第" + second + "次检索---无待审店铺,不发送邮件通知");
-                return "";
-            }else{
-                log.info("【待审店铺】检索"+timeStr1 + " 执行第" + second + "次检索---结果为："+resultMap.get("totalRows"));
-                return "<div style='color:red'>【待审店铺】汇总：" + resultMap.get("totalRows")  + "</div>";
-            }
+            log.info("【待审店铺】检索" + timeStr1 + " 执行第" + second + " ," + resultMap.get("erInfor") + ",系统将自动退出" );
+            return  resultMap.get("erInfor") + ",系统将自动退出";
+        }else if("0".equals(resultMap.get("totalRows"))){
+            log.info("【待审店铺】检索"+timeStr1 + " 执行第" + second + "次检索---无待审店铺,不发送邮件通知");
+            return "";
+        }else{
+            log.info("【待审店铺】检索"+timeStr1 + " 执行第" + second + "次检索---结果为："+resultMap.get("totalRows"));
+            return "<div style='color:red'>【待审店铺】汇总：" + resultMap.get("totalRows")  + "</div>";
         }
-        return "";
     }
 }
