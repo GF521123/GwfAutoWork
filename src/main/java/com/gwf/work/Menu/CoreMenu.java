@@ -1,6 +1,7 @@
 package com.gwf.work.Menu;
 
 import com.gwf.work.Menu.StartMenu.*;
+import com.gwf.work.analysis.AfterSales;
 import com.gwf.work.entity.SystemInfor;
 import com.gwf.work.entity.ToEmail;
 import com.gwf.work.mode.SeleniumHtmlCookie;
@@ -50,6 +51,8 @@ public class CoreMenu  implements CommandLineRunner {
     private SeleniumHtmlCookie seleniumHtmlCookie;
     @Autowired
     private ShopPendingMenuStart shopPendingMenuStart;
+    @Autowired
+    private AfterSalesMenuStart afterSalesMenuStart;
 
     @Override
     public void run(String... args) throws Exception {
@@ -67,7 +70,8 @@ public class CoreMenu  implements CommandLineRunner {
                     }
                 }
 
-                 String orderResString = "";
+                String afterResString = "";
+                String orderResString = "";
                  String NeedPendResString = "";
                  String ShopResString = "";
                  String UpdateNameResString = "";
@@ -98,10 +102,14 @@ public class CoreMenu  implements CommandLineRunner {
                             }
 
                             synchronized (systemInfor) {
-                                if (systemInfor.getSyncNum() != 4) {
+                                afterResString = getRestValue(systemInfor,second,timeStr1,"售后订单");
+                            }
+
+                            synchronized (systemInfor) {
+                                if (systemInfor.getSyncNum() != 5) {
                                     systemInfor.wait();
                                 }
-                                String resValue = ShopResString+ UpdateNameResString + NeedPendResString + orderResString;
+                                String resValue = ShopResString+ UpdateNameResString + NeedPendResString + afterResString+orderResString;
                                 if (!"".equals(resValue)) {
                                     log.info("【邮件】检索完毕，开始发送邮件");
                                     toEmail.setSubject(emailSubject);
@@ -142,6 +150,8 @@ public class CoreMenu  implements CommandLineRunner {
                 resValue = updateShopNameMenuStart.startMenu(second,timeStr);
             }else if("待审店铺".equals(name)){
                 resValue = shopPendingMenuStart.startMenu(second,timeStr);
+            }else if("售后订单".equals(name)){
+                resValue = afterSalesMenuStart.startMenu(second,timeStr);
 
             }
             systemInfor.setSyncNum(systemInfor.getSyncNum() + 1);

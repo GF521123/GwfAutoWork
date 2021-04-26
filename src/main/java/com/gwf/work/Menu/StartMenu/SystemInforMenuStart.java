@@ -38,9 +38,9 @@ public class SystemInforMenuStart{
 		sysInforString +=     "------------------------------------------\n";
 		sysInforString=sysInforString + "设置参数...\n";
 		setSysteInfor();
-		sysInforString=sysInforString +"设定待发订单检测时间间隔" + systemInfor.getSeparatedTime() + "分钟\n";
-		sysInforString=sysInforString +"设定待审商品检测时间间隔" + systemInfor.getPendEffectiveTime() + "分钟\n";
-		sysInforString=sysInforString +"设定待审店铺检测时间间隔" + systemInfor.getShopPendingTime() + "分钟\n";
+//		sysInforString=sysInforString +"设定待发订单检测时间间隔" + systemInfor.getSeparatedTime() + "分钟\n";
+//		sysInforString=sysInforString +"设定待审商品检测时间间隔" + systemInfor.getPendEffectiveTime() + "分钟\n";
+//		sysInforString=sysInforString +"设定待审店铺检测时间间隔" + systemInfor.getShopPendingTime() + "分钟\n";
 		sysInforString=sysInforString +"设定核心检测时间间隔" + systemInfor.getCoreTime() + "分钟\n";
 		sysInforString=sysInforString +"设定参数对象可用" + systemInfor.getStatus()+ "分钟\n";
 		sysInforString=sysInforString + "设置参数完毕\n";

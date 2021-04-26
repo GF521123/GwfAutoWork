@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.gwf</groupId>
     <artifactId>GwfAutoWork</artifactId>
-    <version>-1.0.0-Release</version>
+    <version>1.0.0-Release</version>
     <name>GwfAutoWork</name>
     <description>GwfAutoWork project for Spring Boot</description>
     <properties>
