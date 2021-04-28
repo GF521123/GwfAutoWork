@@ -62,14 +62,12 @@ public class OrderInforUtilsImpl implements OrderUtils {// implements OrderUtils
 					JSONObject order_shop = (JSONObject) JSONObject
 							.parse(order_infor.getJSONArray("goodlist").getString(0));
 					JSONObject order_buy = (JSONObject) JSONObject.parse(order_infor.getString("address"));
-					emailValueString = emailValueString + "<div><div>下单时间:" + date_time + " </div><div>距今时间：" + TempTime + "</div>\n";
-					emailValueString = emailValueString + "<div style='color:red'>店铺名称：" + order_shop.get("aidname") + " </div>\n";
-					emailValueString = emailValueString + "<div style='color:red'>店铺电话："
-							+ getOrderJsonByshopIphone((String) order_shop.get("aidname")) + "</div> ";
-					emailValueString = emailValueString + "<div style='color:blue'>收货姓名："
-							+ order_buy.get("consignee")+"</div><div style='color:blue'>收货电话：" + order_buy.get("telephone") + "</div> "
-									+"</div><div style='color:blue'>收货地址：" + order_buy.get("province") + order_buy.get("city")
-									+order_buy.get("district") + order_buy.get("street") + order_buy.get("detailedAddress") +"</div> ";
+					emailValueString = emailValueString + "<div><div>下单时间:" + date_time + "距今：" + TempTime + "</div>\n";
+					emailValueString = emailValueString + "<div style='color:red'>卖家信息："
+							+ getOrderJsonByshopIphone((String) order_shop.get("aidname")) + "("+  order_shop.get("aidname")+")</div> ";
+					emailValueString = emailValueString + "<div style='color:blue'>买家信息："
+							+ order_buy.get("consignee")+"(" + order_buy.get("telephone") + ")" + order_buy.get("province") + order_buy.get("city")
+							+order_buy.get("district") + order_buy.get("street") + order_buy.get("detailedAddress") +"</div> ";
 					emailValueString = emailValueString + "\n\n<br></div>";
 				}
 			}

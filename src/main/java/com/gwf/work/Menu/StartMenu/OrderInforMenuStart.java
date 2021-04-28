@@ -35,17 +35,17 @@ public class OrderInforMenuStart   {
     @Autowired
     GwfUtils gwfUtils;
 
-    public String startMenu(int second,String timeStr1){
+    public String startMenu(){
 
         Map<String, String> resultMap = orderInfor.OrderImpl_XMLHttp();
         if(resultMap.get("status").equals("200")) {
-            log.info("【待发订单】检索" + timeStr1 + " 执行第" + second + " ," + resultMap.get("erInfor") + ",系统将自动退出" );
+            log.info("【待发订单】检索：" + resultMap.get("erInfor") + ",系统将自动退出" );
             return resultMap.get("erInfor") + ",系统将自动退出";
         }else if("0".equals(resultMap.get("tongjuNum"))){
-            log.info("【待发订单】检索"+timeStr1 + " 执行第" + second + "次检索---无待发商品,不发送邮件通知");
+            log.info("【待发订单】检索：无待发商品,不发送邮件通知");
             return "";
         }else{
-            log.info("【待发订单】检索"+timeStr1 + " 执行第" + second + "次检索---结果为："+resultMap.get("searchValue")+",");
+            log.info("【待发订单】检索："+resultMap.get("searchValue")+",");
             return resultMap.get("htmlEmailValue");
         }
 

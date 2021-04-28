@@ -56,7 +56,6 @@ public class AfterSalesImpl implements AfterSales {
                 params = "keyword=&pagestart=" + i + "&status=f30&price1=&price2=&PageSize=30";
                 res = httpClientRequest.HttpClientX_www(url, params);
                 resultString += rsultFrist(res);
-//                tongjuNum = tongjuNum + orderUtils.getClass().getField("tongjuNum").getInt(orderUtils);
             }
         } catch (Exception e) {
 
@@ -100,9 +99,10 @@ public class AfterSalesImpl implements AfterSales {
 
                 String logtime = ((JSONObject) aftersaleLogList.get(0)).getString("logtime");
                 String shopName = ((JSONObject) After_infor.get(0)).getString("aidname");
+                String orderName = ((JSONObject) After_infor.get(0)).getString("gname");
                 String resValue=ThreeTime(logtime);
                 if(!"".equals(resValue)) {
-                    emailValueString += "<div>" + shopName + "：" + resValue + "</div>";
+                    emailValueString += "<div>" + shopName + "("+orderName+")" + resValue + "</div>";
                 }
             }
             return emailValueString;

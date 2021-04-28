@@ -21,13 +21,13 @@ public class AfterSalesMenuStart {
 
     @Autowired
     private AfterSales afterSales;
-    public String startMenu(int second,String timeStr1){
+    public String startMenu(){
         Map<String, String> ShopAfterInfor = afterSales.getafterSalesInfor();
         if("0".equals(ShopAfterInfor.get("tongjuNum"))){
-            log.info("【售后商品】检索"+timeStr1 + " 执行第" + second + "次检索---无需售后订单需要操作");
+            log.info("【售后商品】检索：无需售后订单需要操作");
             return "";
         }else{
-            log.info("【售后商品】检索"+timeStr1 + " 执行第" + second + "次检索结果为："+ShopAfterInfor.get("searchValue"));
+            log.info("【售后商品】检索："+ShopAfterInfor.get("searchValue"));
             return ShopAfterInfor.get("htmlEmailValue");
         }
     }
