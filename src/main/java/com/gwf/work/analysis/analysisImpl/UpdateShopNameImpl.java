@@ -23,19 +23,20 @@ public class UpdateShopNameImpl implements UpdateShopName {
     @Autowired
     private HttpClientRequest httpClientRequest;
 
-    public Map<String,String> getUpdateShopRest(){
+    public Map<String, String> getUpdateShopRest() {
         params = "{\"entity\":{\"keyWord\":\"\",\"isNotExamineKey\":\"未审核\",\"infoIsNotExamineKey\":\"企业店\"},\"pageNum\":1,\"pageSize\":10,\"jcls\":\"Shop\"}";
         String res = httpClientRequest.HttpClientJson(url, params);
 
         return getResMap(res);
     }
-    public Map<String,String> getResMap(String res){
-        Map<String,String > resMap = new HashMap<>();
+
+    public Map<String, String> getResMap(String res) {
+        Map<String, String> resMap = new HashMap<>();
 
         JSONObject json_Data = (JSONObject) JSONObject.parse(res);
         String totalRows = json_Data.getString("totalRows");
-        resMap.put("totalRows",totalRows);
-        resMap.put("status","0");
+        resMap.put("totalRows", totalRows);
+        resMap.put("status", "0");
 
         return resMap;
     }

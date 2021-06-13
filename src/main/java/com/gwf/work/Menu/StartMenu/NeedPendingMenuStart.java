@@ -33,14 +33,13 @@ public class NeedPendingMenuStart {
     @Autowired
     GwfUtils gwfUtils;
 
-    public String startMenu(){
+    public String startMenu() {
         String needPendingInforNum = needPendingInfor.getNeedPendingInfor();
-        if("".equals(needPendingInforNum)){
-            log.info("【待审商品】检索：无需要审核商品");
+        if ("".equals(needPendingInforNum)) {
             return "";
-        }else{
-            log.info("【待审商品】检索："+needPendingInforNum);
-            return "【待审商品】汇总："+ needPendingInforNum;
+        } else {
+            log.info("【待审商品】检索：" + needPendingInforNum);
+            return "<div style='color:red'>【待审商品】汇总：" + needPendingInforNum + "</div>";
         }
     }
 

@@ -28,7 +28,8 @@ public class SeleniumHtmlCookieImpl implements SeleniumHtmlCookie {
     public String getHtmlCookie() {
         System.setProperty("webdriver.chrome.driver", gwfUtils.getFilePath("static/chromedriver.exe"));
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);   //设置默认超时时间
+
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);   //设置默认超时时间
         //第一次登录
         driver.get("https://www.tf0914.com/login");
         driver.findElement(By.id("__BVID__3")).sendKeys("18607518849");

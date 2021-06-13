@@ -8,5 +8,5 @@ import java.util.Map;
  * @date 2021/4/22 10:42
  */
 public interface UpdateShopName {
-    public Map<String,String> getUpdateShopRest();
+    public Map<String, String> getUpdateShopRest();
 }

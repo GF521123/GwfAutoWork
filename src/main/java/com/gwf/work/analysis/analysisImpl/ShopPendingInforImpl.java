@@ -34,12 +34,13 @@ public class ShopPendingInforImpl implements ShopPendingInfor {
         String res = httpClientRequest.HttpClientJson(url, params);
         return getShopPendingMap(res);
     }
-    public Map<String, String> getShopPendingMap(String res){
+
+    public Map<String, String> getShopPendingMap(String res) {
         Map<String, String> resMap = new HashMap<>();
         JSONObject json_Data = (JSONObject) JSONObject.parse(res);
         String totalRows = json_Data.getString("totalRows");
-        resMap.put("totalRows",totalRows);
-        resMap.put("status","0");
+        resMap.put("totalRows", totalRows);
+        resMap.put("status", "0");
         return resMap;
     }
 }

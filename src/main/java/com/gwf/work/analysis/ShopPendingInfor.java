@@ -8,5 +8,5 @@ import java.util.Map;
  * @date 2021/4/21 15:09
  */
 public interface ShopPendingInfor {
-    public Map<String,String> getShopPendinginfor();
+    public Map<String, String> getShopPendinginfor();
 }

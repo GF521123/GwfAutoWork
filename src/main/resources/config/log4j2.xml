@@ -7,7 +7,7 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout
                     pattern="[%d][%-5p][%t] %m %n"/>
-<!--                     pattern="[%d][%-5p][%t] %m (%F:%L)%n"/> -->
+            <!--                     pattern="[%d][%-5p][%t] %m (%F:%L)%n"/> -->
         </Console>
         <RollingFile name="debug" fileName="${logpath}/debug/erp_debug.log"
                      filePattern="${logpath}/debug/erp_debug_%d{yyyy-MM-dd}-%i.log">
@@ -72,20 +72,20 @@
             <PatternLayout pattern="[%d][%-5p][%t] %m (%F:%L)%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="24" modulate="true"/>
-                  <!--   每个文件最大50M -->
+                <!--   每个文件最大50M -->
                 <SizeBasedTriggeringPolicy size="50 MB"/>\
             </Policies>
             <DefaultRolloverStrategy max="30">
                 <Delete basePath="${logpath}/error" maxDepth="1">
                     <IfFileName glob="erp_error_*.log"/>
-                     <!-- 设置最大保存时间为15天-->
+                    <!-- 设置最大保存时间为15天-->
                     <IfLastModified age="15d"/>
                 </Delete>
             </DefaultRolloverStrategy>
         </RollingFile>
 
     </Appenders>
-   <!--切换输出级别-->
+    <!--切换输出级别-->
     <Loggers>
         <Root level="info">
             <AppenderRef ref="Console"/>

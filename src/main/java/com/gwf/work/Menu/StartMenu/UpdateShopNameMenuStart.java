@@ -28,18 +28,19 @@ public class UpdateShopNameMenuStart {
 
     @Autowired
     private UpdateShopName updateShopName;
-    public String startMenu(){
+
+    public String startMenu() {
 
         Map<String, String> resultMap = updateShopName.getUpdateShopRest();
-        if(resultMap.get("status").equals("200")) {
-            log.info("【改名店名】检索："+ resultMap.get("erInfor") + ",系统将自动退出");
+        if (resultMap.get("status").equals("200")) {
+            log.info("【改名店名】检索：" + resultMap.get("erInfor") + ",系统将自动退出");
             return resultMap.get("erInfor") + ",系统将自动退出";
-        }else if("0".equals(resultMap.get("totalRows"))){
+        } else if ("0".equals(resultMap.get("totalRows"))) {
             log.info("【改名店名】检索：无改名店铺,不发送邮件通知");
             return "";
-        }else{
-            log.info("【改名店名】检索："+resultMap.get("totalRows"));
-            return "<div style='color:red'>【改名店名】汇总：" + resultMap.get("totalRows")  + "</div>";
+        } else {
+            log.info("【改名店名】检索：" + resultMap.get("totalRows"));
+            return "<div style='color:red'>【改名店名】汇总：" + resultMap.get("totalRows") + "</div>";
         }
     }
 }

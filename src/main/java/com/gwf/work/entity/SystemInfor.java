@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 public class SystemInfor {
 
     private Boolean status;//状态
-    private String SeparatedTime ;// 60分钟
-    private String PendEffectiveTime ;// 60分钟 待审产品
+    private String SeparatedTime;// 60分钟
+    private String PendEffectiveTime;// 60分钟 待审产品
     private String cookie;
     private String ShopPendingTime;
     private String CoreTime;

@@ -21,13 +21,14 @@ public class AfterSalesMenuStart {
 
     @Autowired
     private AfterSales afterSales;
-    public String startMenu(){
+
+    public String startMenu() {
         Map<String, String> ShopAfterInfor = afterSales.getafterSalesInfor();
-        if("0".equals(ShopAfterInfor.get("tongjuNum"))){
+        if ("0".equals(ShopAfterInfor.get("tongjuNum"))) {
             log.info("【售后商品】检索：无需售后订单需要操作");
             return "";
-        }else{
-            log.info("【售后商品】检索："+ShopAfterInfor.get("searchValue"));
+        } else {
+            log.info("【售后商品】检索：" + ShopAfterInfor.get("searchValue"));
             return ShopAfterInfor.get("htmlEmailValue");
         }
     }

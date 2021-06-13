@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Component
 @Repository
-public class OrderInforMenuStart   {
+public class OrderInforMenuStart {
     private static final Logger log = LoggerFactory.getLogger(OrderInforMenuStart.class);
 
     @Autowired
@@ -35,17 +35,17 @@ public class OrderInforMenuStart   {
     @Autowired
     GwfUtils gwfUtils;
 
-    public String startMenu(){
+    public String startMenu() {
 
         Map<String, String> resultMap = orderInfor.OrderImpl_XMLHttp();
-        if(resultMap.get("status").equals("200")) {
-            log.info("【待发订单】检索：" + resultMap.get("erInfor") + ",系统将自动退出" );
+        if (resultMap.get("status").equals("200")) {
+            log.info("【待发订单】检索：" + resultMap.get("erInfor") + ",系统将自动退出");
             return resultMap.get("erInfor") + ",系统将自动退出";
-        }else if("0".equals(resultMap.get("tongjuNum"))){
+        } else if ("0".equals(resultMap.get("tongjuNum"))) {
             log.info("【待发订单】检索：无待发商品,不发送邮件通知");
             return "";
-        }else{
-            log.info("【待发订单】检索："+resultMap.get("searchValue")+",");
+        } else {
+            log.info("【待发订单】检索：" + resultMap.get("searchValue") + ",");
             return resultMap.get("htmlEmailValue");
         }
 
